@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./components/Button";
 import Card from "./components/Card";
 import card1 from "./assets/img/card1.jpg";
 import card2 from "./assets/img/card2.jpg";
 import card3 from "./assets/img/card3.jpg";
+import Counter from "./components/Counter";
 
 const cards = [
   {
@@ -53,45 +54,63 @@ const cards = [
   },
 ];
 
+const renkler = ["black", "red", "blue", "green", "pink", "gray"];
+
 function App() {
+  const [kullaniciAdi, setKullaniciAdi] = useState(
+    "Henüz Kullnıcı adı girilmedi"
+  );
+  const [kutuRengi, setKutuRengi] = useState("black");
+  const [usernameInput, setUsernameInput] = useState("");
+  const [active, setActive] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setKullaniciAdi(`Hoşgeldin ${usernameInput}`);
+  };
+
+  const rengiDegistir = () => {
+    var r = Math.floor(Math.random() * 256);
+    var g = Math.floor(Math.random() * 256);
+    var b = Math.floor(Math.random() * 256);
+    setKutuRengi(`rgb(${r},${g},${b})`);
+    setActive(true);
+  };
+
   return (
     <div>
-      <h1>Hello</h1>
-      <Button
-        buttonText="Buton 1"
-        type="primary"
-        tiklaninca={() => {
-          console.log("buton1e basıldı");
-        }}
-      />
-      <Button
-        buttonText="Buton 2"
-        type="secondary"
-        tiklaninca={() => {
-          alert("buton2den mesaj");
-        }}
-      />
+      <Counter />
+      {/* <h1 className="text-center my-4">React ile form işlemleri</h1>
+      <form onSubmit={handleSubmit} className="container">
+        <div className="mb-3">
+          <input
+            type="text"
+            placeholder="usename"
+            className="form-control"
+            id="exampleInputEmail1"
+            value={usernameInput}
+            onChange={(event) => {
+              setUsernameInput(event.target.value);
+            }}
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+      <p className={active === true ? "active" : "passive"}>{kullaniciAdi}</p>
       <div
+        className="my-5"
         style={{
-          display: "flex",
-          gap: "50px",
-          flexWrap: "wrap",
+          width: "200px",
+          height: "200px",
+          border: "1px solid",
+          backgroundColor: kutuRengi,
         }}
-      >
-        {cards.map((item, index) => {
-          return (
-            <Card
-              key={index}
-              imgSrc={item.img}
-              title={item.title}
-              description={item.description}
-              onClick={() => {
-                console.log(item.title + "ına gidecek");
-              }}
-            />
-          );
-        })}
-      </div>
+      ></div>
+      <button id="renkBtn" onClick={rengiDegistir} className="btn btn-primary">
+        Rengini Değiştir
+      </button> */}
     </div>
   );
 }
@@ -103,6 +122,4 @@ export default App;
 -> DOM ve VDOM arasında bağlantı (state)
 -> Componentlar arasında veri taşıma (props)
 -> JSX 
-
 */
-//Button()
